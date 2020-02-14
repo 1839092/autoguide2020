@@ -3,7 +3,7 @@
 =========================================================================
 Intégration web III - TP1
 -------------------------------------------------------------------------
-Votre nom :
+Votre nom : Gabriel Bélanger
 -------------------------------------------------------------------------
 Cette page affiche une auto en fonction de la marque et de l'adresse fournis dans l'adresse
 - Inclure le fichier de la class Auto

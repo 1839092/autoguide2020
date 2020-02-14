@@ -3,7 +3,7 @@
 =========================================================================
 Intégration web III - TP1
 -------------------------------------------------------------------------
-Votre nom :
+Votre nom : Gabriel Bélanger
 -------------------------------------------------------------------------
 Cette page devrait contenir les tests des méthodes
 - Inclure le fichier de la class Auto
@@ -14,6 +14,13 @@ Cette page devrait contenir les tests des méthodes
 include_once("../src/Auto.php");
 include_once("../src/donnees.inc.php");
 /*LIGNE DE TEST*/
-echo Auto::titre('Ford', 'Fiesta', 'strong');
+//echo Auto::titre('Ford', 'Fiesta', 'strong');
+//echo Auto::titre('Nissan', 'Versa', 'h1');
+
+//var_dump(Auto::trouverModele($voitures, 'Ford', 'Fiesta'));
+//var_dump(Auto::trouverModele($voitures, 'Lada', 'Fiesta'));
+
+echo Auto::ariane('Nissan', 'Versa');
+echo Auto::ariane('Ferrari');
+echo Auto::ariane();
 // ... CONTINUER ...
-?>

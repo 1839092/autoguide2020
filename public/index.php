@@ -3,7 +3,7 @@
 =========================================================================
 Intégration web III - TP1
 -------------------------------------------------------------------------
-Votre nom :
+Votre nom : Gabriel Bélanger
 -------------------------------------------------------------------------
 Cette page affiche la liste des voitures disponibles sur le site
 - Inclure le fichier de la class Auto

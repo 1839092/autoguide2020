@@ -3,7 +3,7 @@
 =========================================================================
 Intégration web III - TP1
 -------------------------------------------------------------------------
-Votre nom :
+Votre nom : Gabriel Bélanger
 -------------------------------------------------------------------------
 - Compléter les méthodes suivantes
 - Toutes les méthodes sont statiques
@@ -12,7 +12,8 @@ Votre nom :
 	- Faire chaque méthode en oubliant le contexte dans lequel elles seront utilisées. "Elles prennent des données et retournent une valeur. Point final!"
 	- Tester CHAQUE méthode individuellement en ajoutant une ligne de test dans la page test.php
 */
-class Auto {
+class Auto
+{
 	/** Méthode "titre" qui retourne le titre d'une voiture dont la marque et le modele sont passés en paramètres.
 	 * Le résultat peut être envelopée ou non d'une balise dont le nom est passé en paramètre.
 	 * Notes:
@@ -24,14 +25,15 @@ class Auto {
 	 * @param string $nomModele - Le modele de voiture
 	 * @param string $balise - Le nom de la balise devant envelopper le titre. Valeur par défaut : ""
 	 * @return string - Le titre mis en forme
-	*/
-	static public function titre($nomMarque, $nomModele="", $balise="") {
-		$resultat = $nomMarque." ".$nomModele;
-		if ($nomModele) {
-			$resultat = $nomMarque." ".$nomModele;
+	 */
+	static public function titre($nomMarque = "", $nomModele = "", $balise = "")
+	{
+		$resultat = $nomMarque;
+		if ($nomModele != "") {
+			$resultat .= " " . $nomModele;
 		}
 		if ($balise != "") {
-			$resultat = '<'.$balise.'>'.$resultat.'</'.$balise.'>';
+			$resultat = '<' . $balise . '>' . $resultat . '</' . $balise . '>';
 		}
 		return $resultat;
 	}
@@ -44,7 +46,17 @@ class Auto {
 	 * @param string $nomModele - Le modele à rechercher dans la marque
 	 * @return array - Le array du modele ou false
 	 */
-
+	static public function trouverModele($autos, $nomMarque, $nomModele = "")
+	{
+		if (!isset($autos[$nomMarque])) {
+			return false;
+		}
+		if (!isset($autos[$nomMarque][$nomModele])) {
+			return false;
+		}
+		$resultat = $autos[$nomMarque][$nomModele];
+		return $resultat;
+	}
 
 	/** Méthode "ariane" qui retourne le HTML du fil d'Ariane se trouvant DANS le div "menu"
 	 * Notes :
@@ -54,8 +66,18 @@ class Auto {
 	 * @param string $nomModele - Le modele de voiture. Valeur par défaut : "".
 	 * @return string - Le HTML du fil d'Ariane
 	 */
+	static public function ariane($nomMarque = "", $nomModele = "")
+	{
+		$resultat = '<nav id="ariane"><ul><li><a href="index.php">Accueil</a></li>';
+		$resultat .= '';
+		if (isset($nomMarque)) {
+			$resultat = '<li><a href="marque.php?nomMarque=' . $nomMarque . '">' . $nomMarque . '</a></li>';
+			$resultat .= '<li><span>' . $nomModele . '</span></li>';
+		}
+		$resultat .= '</ul></nav>';
+		return $resultat;
+	}
 
-	 
 	/** Méthode "lien" qui retourne le code HTML d'un lien retrouvé dans la page index
 	 * qui permet d'afficher les détails d'une voiture
 	 * @param string $nomMarque - La marque de voiture
@@ -83,7 +105,7 @@ class Auto {
 	 */
 
 
-	 /** Méthode "listeModeles" qui retourne le HTML du ul "listeModeles"
+	/** Méthode "listeModeles" qui retourne le HTML du ul "listeModeles"
 	 * contenant la liste des voitures (voir maquette, page index.php) en fonction des paramètres
 	 * @param array $nomMarque - Le nom de la marque à parcourir
 	 * @param array $autosMarque - Le array contenant les autos
@@ -127,7 +149,7 @@ class Auto {
 	 * @param array $voiture - Le array représentant la voiture
 	 * @return string - Le HTML du tr
 	 */
-	
+
 
 	/** Méthode "affichageVoiture" qui retourne le div "voiture" contenant la description d'une voiture
 	 * en fonction des paramètres (voir maquette, page modele.php)
@@ -137,6 +159,4 @@ class Auto {
 	 * @param string $nomModele - Le modele à rechercher dans la marque
 	 * @param string - Le HTML du div "voiture"
 	 */
-	
-
 }
