@@ -20,7 +20,14 @@ include_once("../src/donnees.inc.php");
 //var_dump(Auto::trouverModele($voitures, 'Ford', 'Fiesta'));
 //var_dump(Auto::trouverModele($voitures, 'Lada', 'Fiesta'));
 
-echo Auto::ariane('Nissan', 'Versa');
-echo Auto::ariane('Ferrari');
-echo Auto::ariane();
-// ... CONTINUER ...
+//echo Auto::ariane('Nissan', 'Versa');
+//echo Auto::ariane('Ferrari');
+//echo Auto::ariane();
+
+//echo Auto::lien('Nissan','Versa');
+
+//echo Auto::image('Nissan','Versa');
+//echo Auto::image('Ford','Fiesta');
+//echo Auto::image('Ford','Focus','FORD_FOCUS');
+
+echo Auto::listeMarques($voitures);
