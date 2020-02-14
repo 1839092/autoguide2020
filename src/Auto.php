@@ -115,36 +115,6 @@ class Auto
 		return '<img src="images/voitures/' . strtolower($nomMarque) . '_' . strtolower($nomModele) . '.jpg" class="' . $class . '" alt="' . Auto::titre($nomMarque, $nomModele) . '" title="' . Auto::titre($nomMarque, $nomModele) . '" />';
 	}
 
-	/** Méthode "listeMarques" qui retourne le HTML du ul "listeMarques"
-	 * contenant la liste des voitures (voir maquette, page index.php) en fonction du paramètre
-	 * @param array $autos - Le array contenant les autos
-	 * @return string - Le HTML du div "listeMarques"
-	 */
-	static public function listeMarques($autos)
-	{
-		$resultat = '<li><a href="marque.php?nomMarque='/*.$autos['Ford']*/.'">Ford</a>';
-		$resultat .= '<ul class="listeModeles">';
-		$resultat .= '<li><a href="modele.php?nomMarque=Ford&amp;nomModele=Fiesta"><img class="tb" src="images/voitures/ford_fiesta_tb.jpg" alt="Ford Fiesta" title="Ford Fiesta" /><span>Fiesta</span></a></li>';
-		$resultat .= '<li><a href="modele.php?nomMarque=Ford&amp;nomModele=Focus"><img class="tb" src="images/voitures/ford_focus_tb.jpg" alt="Ford Focus"';
-		$resultat .= 'title="Ford Focus" /><span>Focus</span></a></li>';
-		$resultat .= '<li><a href="modele.php?nomMarque=Ford&amp;nomModele=Fusion"><img class="tb" src="images/voitures/ford_fusion_tb.jpg" alt="Ford Fusion" title="Ford Fusion" /><span>Fusion</span></a></li>';
-		$resultat .= '</ul>';
-		$resultat .= '</li>';
-		$resultat .= '<li><a href="marque.php?nomMarque=Nissan">Nissan</a>';
-		$resultat .= '<ul class="listeModeles">';
-		$resultat .= '<li><a href="modele.php?nomMarque=Nissan&amp;nomModele=Versa"><img class="tb" src="images/voitures/nissan_versa_tb.jpg" alt="Nissan Versa"';
-		$resultat .= 'title="Nissan Versa" /><span>Versa</span></a></li>';
-		$resultat .= '<li><a href="modele.php?nomMarque=Nissan&amp;nomModele=Altima"><img class="tb" src="images/voitures/nissan_altima_tb.jpg" alt="Nissan Altima" title="Nissan Altima" /><span>Altima</span></a></li>';
-		$resultat .= '</ul>';
-		$resultat .= '</li>';
-		$resultat .= '<li><a href="marque.php?nomMarque=Ferrari">Ferrari</a>';
-		$resultat .= '<ul class="listeModeles">';
-		$resultat .= '<li><a href="modele.php?nomMarque=Ferrari&amp;nomModele=California"><img class="tb" src="images/voitures/ferrari_california_tb.jpg" alt="Ferrari California" title="Ferrari California" /><span>California</span></a></li>';
-		$resultat .= '</ul>';
-		$resultat .= '</li>';
-		return $resultat;
-	}
-
 	/** Méthode "listeModeles" qui retourne le HTML du ul "listeModeles"
 	 * contenant la liste des voitures (voir maquette, page index.php) en fonction des paramètres
 	 * @param array $nomMarque - Le nom de la marque à parcourir
@@ -153,15 +123,27 @@ class Auto
 	 */
 	static public function listeModeles($nomMarque, $autosMarque)
 	{
-		$resultat .= '<li><a href="modele.php?nomMarque=Ford&amp;nomModele=Fiesta"><img class="tb"';
-		$resultat .= 'src="images/voitures/ford_fiesta_tb.jpg" alt="Ford Fiesta"';
-		$resultat .= 'title="Ford Fiesta" /><span>Fiesta</span></a></li>';
-		$resultat .= '<li><a href="modele.php?nomMarque=Ford&amp;nomModele=Focus"><img class="tb"';
-		$resultat .= 'src="images/voitures/ford_focus_tb.jpg" alt="Ford Focus"';
-		$resultat .= 'title="Ford Focus" /><span>Focus</span></a></li>';
-		$resultat .= '<li><a href="modele.php?nomMarque=Ford&amp;nomModele=Fusion"><img class="tb"';
-		$resultat .= 'src="images/voitures/ford_fusion_tb.jpg" alt="Ford Fusion"';
-		$resultat .= 'title="Ford Fusion" /><span>Fusion</span></a></li>';
+		$resultat = '';
+		foreach ($autosMarque[$nomMarque] as $nomModele => $value) {
+			$resultat .= '<li><a href="modele.php?nomMarque=' . $nomMarque . '&amp;nomModele=' . $nomModele . '">' . Auto::image($nomMarque, $nomModele, $nomModele) . '<span>' . $nomModele . '</span></a></li>';
+		}
+		return $resultat;
+	}
+
+	/** Méthode "listeMarques" qui retourne le HTML du ul "listeMarques"
+	 * contenant la liste des voitures (voir maquette, page index.php) en fonction du paramètre
+	 * @param array $autos - Le array contenant les autos
+	 * @return string - Le HTML du div "listeMarques"
+	 */
+	static public function listeMarques($autos)
+	{
+		$resultat = '';
+		foreach ($autos as $nomMarque => $value) {
+			$resultat .= '<li><a href="marque.php?nomMarque=' . $nomMarque . '">' . $nomMarque . '</a>';
+			$resultat .= '<ul class="listeModeles">';
+			$resultat .= Auto::listeModeles($nomMarque, $autos);
+			$resultat .= '</ul>';
+		}
 		return $resultat;
 	}
 
@@ -173,6 +155,12 @@ class Auto
 	 */
 	static public function ligne($etiquette, $contenu)
 	{
+		$resultat = '';
+		$resultat .= '<tr>';
+		$resultat .= '<td class="etiquette">' . $etiquette . '</td>';
+		$resultat .= '<td>' . $contenu . '</td>';
+		$resultat .= '</tr>';
+		return $resultat;
 	}
 
 	/** Méthode "ligne_puissance" qui retourne la ligne de la puissance (2e ligne) de la voiture
@@ -183,6 +171,9 @@ class Auto
 	 */
 	static public function ligne_puissance($voiture)
 	{
+		$contenu = '';
+		$contenu = explode(':', $voiture['puissance'])[0] . ' ch @ ' . explode(':', $voiture['puissance'])[1] . ' tr/min';
+		return Auto::ligne('Puissance : ', $contenu);
 	}
 
 	/** Méthode "ligne_couple" qui retourne la ligne du couple de la voiture (3e ligne)
@@ -193,6 +184,9 @@ class Auto
 	 */
 	static public function ligne_couple($voiture)
 	{
+		$contenu = '';
+		$contenu = $contenu = explode(':', $voiture['couple'])[0] . ' lb-pi @ ' . explode(':', $voiture['couple'])[1] . ' tr/min';
+		return Auto::ligne('Couple : ', $contenu);
 	}
 
 	/** Méthode "ligne_transmissions" qui retourne la ligne des transmissions disponibles (voir maquette, page modele.php)
@@ -200,8 +194,15 @@ class Auto
 	 * @param array $voiture - Le array représentant la voiture
 	 * @return string - Le HTML du tr
 	 */
-	static public function ligne_transmissions($nomMarque, $nomModele)
+	static public function ligne_transmissions($voiture)
 	{
+		$contenu = '';
+		$contenu .= '<ul class="transmissions">';
+		$contenu .= '<li>' . $voiture['transmissions'][0] . '</li>';
+		$contenu .= '<li>' . $voiture['transmissions'][1] . '</li>';
+		$contenu .= '</ul>';
+
+		return Auto::ligne('Transmissions : ', $contenu);
 	}
 
 	/** Méthode "ligne_consommation" qui retourne la ligne de la consommation (en ville et sur autoroute) de la voiture (voir maquette, page modele.php)
@@ -211,6 +212,13 @@ class Auto
 	 */
 	static public function ligne_consommation($voiture)
 	{
+		$contenu = '';
+		$contenu .= '<ul class="consommation">';
+		$contenu .= '<li>Ville : ' . $voiture['consommation']['ville'] . ' litres/100 km</li>';
+		$contenu .= '<li>Autoroute : ' . $voiture['consommation']['autoroute'] . ' litres/100 km</li>';
+		$contenu .= '</ul>';
+
+		return Auto::ligne('Consommation : ', $contenu);
 	}
 
 	/** Méthode "affichageVoiture" qui retourne le div "voiture" contenant la description d'une voiture
@@ -223,5 +231,19 @@ class Auto
 	 */
 	static public function affichageVoiture($voiture, $nomMarque, $nomModele)
 	{
+		$resultat = '';
+		$resultat .= Auto::image($nomMarque, $nomModele, $nomModele);
+		$resultat .= '<h2>Prix de base</h2>';
+		$resultat .= '<div class="prix">' . $voiture['prix'] . '</div>';
+		$resultat .= '<h2>Caractéristiques</h2>';
+		$resultat .= '<table class="caracteristiques">';
+		$resultat .= Auto::ligne('Moteur : ', $voiture['moteur']);
+		$resultat .= Auto::ligne_puissance($voiture);
+		$resultat .= Auto::ligne_couple($voiture);
+		$resultat .= Auto::ligne_transmissions($voiture);
+		$resultat .= Auto::ligne_consommation($voiture);
+		$resultat .= '</table>';
+
+		return $resultat;
 	}
 }

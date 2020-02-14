@@ -18,7 +18,8 @@ Cette page affiche une auto en fonction de la marque et de l'adresse fournis dan
 */
 
 
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="fr">
 
 <head>
@@ -49,8 +50,8 @@ Cette page affiche une auto en fonction de la marque et de l'adresse fournis dan
 					<h1>Ferrari California</h1>
 				</header>
 				<!-- /* Faire afficher la voiture ici; */ -->
-				<div class="voiture"><img class="voiture" src="images/voitures/ferrari_california.jpg"
-						alt="Ferrari California" title="Ferrari California" />
+				<div class="voiture">
+					<img class="voiture" src="images/voitures/ferrari_california.jpg" alt="Ferrari California" title="Ferrari California" />
 					<h2>Prix de base</h2>
 					<div class="prix">192000 $</div>
 					<h2>Caractéristiques</h2>
