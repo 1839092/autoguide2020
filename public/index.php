@@ -11,9 +11,10 @@ Cette page affiche la liste des voitures disponibles sur le site
 - Commencer par le fichier Auto.php
 =========================================================================
 */
-
-
-?><!DOCTYPE html>
+include_once("../src/Auto.php");
+include_once("../src/donnees.inc.php");
+?>
+<!DOCTYPE html>
 <html lang="fr">
 
 <head>
@@ -25,15 +26,13 @@ Cette page affiche la liste des voitures disponibles sur le site
 <body>
 	<div class="interface">
 		<!-- /* Inclure le header ici */ -->
-		<header>
-			<h1><a href="index.php">AutoGuide.qc</a></h1>
-		</header>
+		<?php
+		include('../components/header.php');
+		?>
 		<!-- /* Faire afficher le fil d'Ariane ici */ -->
-		<nav id="ariane">
-			<ul>
-				<li><span>Accueil</span></li>
-			</ul>
-		</nav>
+		<?php
+		echo Auto::ariane();
+		?>
 		<section class="body">
 			<article>
 				<header>
@@ -41,43 +40,16 @@ Cette page affiche la liste des voitures disponibles sur le site
 				</header>
 				<!-- /* Faire afficher la liste des voitures ici */ -->
 				<ul class="listeMarques">
-					<li><a href="marque.php?nomMarque=Ford">Ford</a>
-						<ul class="listeModeles">
-							<li><a href="modele.php?nomMarque=Ford&amp;nomModele=Fiesta"><img class="tb"
-										src="images/voitures/ford_fiesta_tb.jpg" alt="Ford Fiesta"
-										title="Ford Fiesta" /><span>Fiesta</span></a></li>
-							<li><a href="modele.php?nomMarque=Ford&amp;nomModele=Focus"><img class="tb"
-										src="images/voitures/ford_focus_tb.jpg" alt="Ford Focus"
-										title="Ford Focus" /><span>Focus</span></a></li>
-							<li><a href="modele.php?nomMarque=Ford&amp;nomModele=Fusion"><img class="tb"
-										src="images/voitures/ford_fusion_tb.jpg" alt="Ford Fusion"
-										title="Ford Fusion" /><span>Fusion</span></a></li>
-						</ul>
-					</li>
-					<li><a href="marque.php?nomMarque=Nissan">Nissan</a>
-						<ul class="listeModeles">
-							<li><a href="modele.php?nomMarque=Nissan&amp;nomModele=Versa"><img class="tb"
-										src="images/voitures/nissan_versa_tb.jpg" alt="Nissan Versa"
-										title="Nissan Versa" /><span>Versa</span></a></li>
-							<li><a href="modele.php?nomMarque=Nissan&amp;nomModele=Altima"><img class="tb"
-										src="images/voitures/nissan_altima_tb.jpg" alt="Nissan Altima"
-										title="Nissan Altima" /><span>Altima</span></a></li>
-						</ul>
-					</li>
-					<li><a href="marque.php?nomMarque=Ferrari">Ferrari</a>
-						<ul class="listeModeles">
-							<li><a href="modele.php?nomMarque=Ferrari&amp;nomModele=California"><img class="tb"
-										src="images/voitures/ferrari_california_tb.jpg" alt="Ferrari California"
-										title="Ferrari California" /><span>California</span></a></li>
-						</ul>
-					</li>
+					<?php
+					echo Auto::listeMarques($voitures);
+					?>
 				</ul>
 			</article>
 		</section>
 		<!-- /* Inclure le footer ici */ -->
-		<footer>
-			&copy; 2020 - Travail fait dans le cadre du cours <cite>Intégration Web III</cite>
-		</footer>
+		<?php
+		include('../components/footer.php');
+		?>
 	</div>
 </body>
 
