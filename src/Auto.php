@@ -94,7 +94,7 @@ class Auto
 	 */
 	static public function lien($nomMarque, $nomModele)
 	{
-		return  'modele.php?nomMarque=' . $nomMarque . '&amp;nomModele=' . $nomModele;
+		return  '<a href="modele.php?nomMarque=' . $nomMarque . '&amp;nomModele=' . $nomModele.'">'. Auto::image($nomMarque, $nomModele, $nomModele) . '<span>' . $nomModele . '</span></a>';
 	}
 
 	/** Méthode "image" qui retourne le code HTML d'une image composé en fonction des paramètres
@@ -125,7 +125,7 @@ class Auto
 	{
 		$resultat = '';
 		foreach ($autosMarque[$nomMarque] as $nomModele => $value) {
-			$resultat .= '<li><a href="modele.php?nomMarque=' . $nomMarque . '&amp;nomModele=' . $nomModele . '">' . Auto::image($nomMarque, $nomModele, $nomModele) . '<span>' . $nomModele . '</span></a></li>';
+			$resultat .= '<li>'. Auto::lien($nomMarque, $nomModele). '</li>';
 		}
 		return $resultat;
 	}
@@ -198,8 +198,9 @@ class Auto
 	{
 		$contenu = '';
 		$contenu .= '<ul class="transmissions">';
-		$contenu .= '<li>' . $voiture['transmissions'][0] . '</li>';
-		$contenu .= '<li>' . $voiture['transmissions'][1] . '</li>';
+		foreach($voiture['transmissions'] as $key => $value){
+			$contenu .= '<li>' . $voiture['transmissions'][$key] . '</li>';
+		}
 		$contenu .= '</ul>';
 
 		return Auto::ligne('Transmissions : ', $contenu);
@@ -214,8 +215,9 @@ class Auto
 	{
 		$contenu = '';
 		$contenu .= '<ul class="consommation">';
-		$contenu .= '<li>Ville : ' . $voiture['consommation']['ville'] . ' litres/100 km</li>';
-		$contenu .= '<li>Autoroute : ' . $voiture['consommation']['autoroute'] . ' litres/100 km</li>';
+		foreach($voiture['consommation'] as $key => $value){
+			$contenu .= '<li>'.ucfirst($key).' : ' . $voiture['consommation'][$key] . ' litres/100 km</li>';
+		}
 		$contenu .= '</ul>';
 
 		return Auto::ligne('Consommation : ', $contenu);

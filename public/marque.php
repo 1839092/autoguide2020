@@ -17,6 +17,7 @@ Cette page affiche la liste des modèles en fonction de la marque fournie dans l
 */
 include_once("../src/Auto.php");
 include_once("../src/donnees.inc.php");
+$nomMarque = $_GET['nomMarque'];
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -25,7 +26,7 @@ include_once("../src/donnees.inc.php");
 	<meta charset="UTF-8" />
 	<link rel="stylesheet" href="css/autoguide.css" />
 	<!-- /* Faire afficher le nom de la marque dans le title; */ -->
-	<?php echo Auto::titre($_GET['nomMarque'],'','title') ?>
+	<?php echo Auto::titre($nomMarque,'','title') ?>
 </head>
 
 <body>
@@ -37,19 +38,19 @@ include_once("../src/donnees.inc.php");
 		<!-- /* Faire afficher le fil d'Ariane ici; */ -->
 		<nav id="ariane">
 		<?php
-		echo Auto::ariane($_GET['nomMarque']);
+		echo Auto::ariane($nomMarque);
 		?>
 		</nav>
 		<section class="body">
 			<article>
 				<header>
 					<!-- /* Faire afficher le nom de la marque dans le h1; */ -->
-					<h1><?php echo $_GET['nomMarque']; ?></h1>
+					<h1><?php echo $nomMarque; ?></h1>
 				</header>
 				<!-- /* Faire afficher la liste de modèles ici; */ -->
 				<ul class="listeModeles">
 					<?php 
-					echo Auto::listeModeles($_GET['nomMarque'], $voitures); 
+					echo Auto::listeModeles($nomMarque, $voitures); 
 					?>
 				</ul>
 			</article>

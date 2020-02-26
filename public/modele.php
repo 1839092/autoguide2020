@@ -18,7 +18,8 @@ Cette page affiche une auto en fonction de la marque et de l'adresse fournis dan
 */
 include_once("../src/Auto.php");
 include_once("../src/donnees.inc.php");
-
+$nomMarque = $_GET['nomMarque'];
+$nomModele = $_GET['nomModele'];
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -27,7 +28,7 @@ include_once("../src/donnees.inc.php");
 	<meta charset="UTF-8" />
 	<link rel="stylesheet" href="css/autoguide.css" />
 	<!-- /* Faire afficher le titre de la voiture ici (dans un title); */ -->
-	<?php echo Auto::titre($_GET['nomMarque'],$_GET['nomModele'],'title') ?>
+	<?php echo Auto::titre($nomMarque,$nomModele,'title') ?>
 </head>
 
 <body>
@@ -38,18 +39,18 @@ include_once("../src/donnees.inc.php");
 		?>
 		<!-- /* Faire afficher le fil d'Ariane ici; */ -->
 		<?php
-		echo Auto::ariane($_GET['nomMarque'], $_GET['nomModele']);
+		echo Auto::ariane($nomMarque, $nomModele);
 		?>
 		<section class="body">
 			<article>
 				<header>
 					<!-- /* Faire afficher le titre de la voiture ici (dans un h1); */ -->
-					<h1><?php echo $_GET['nomModele']; ?></h1>
+					<h1><?php echo $nomModele; ?></h1>
 				</header>
 				<!-- /* Faire afficher la voiture ici; */ -->
 				<div class="voiture">
 					<?php
-					echo Auto::affichageVoiture($voitures[$_GET['nomMarque']][$_GET['nomModele']],$_GET['nomMarque'],$_GET['nomModele']);
+					echo Auto::affichageVoiture($voitures[$nomMarque][$nomModele],$nomMarque,$nomModele);
 					?>
 				</div>
 			</article>
